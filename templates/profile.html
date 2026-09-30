@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>My Profile</h1>
+
+    {% if success %}
+        <div class="message">
+            {{ success }}
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>First Name:</label>
+
+        <input
+            type="text"
+            name="first_name"
+            value="{{ user.first_name }}"
+            required
+        >
+
+        <br><br>
+
+
+        <label>Last Name:</label>
+
+        <input
+            type="text"
+            name="last_name"
+            value="{{ user.last_name }}"
+            required
+        >
+
+        <br><br>
+
+
+        <label>Email:</label>
+
+        <input
+            type="email"
+            name="email"
+            value="{{ user.email }}"
+            required
+        >
+
+        <br><br>
+
+
+        <label>Personality:</label>
+
+        <select name="personality_id">
+
+            <option value="">Select Personality</option>
+
+            {% for personality in personalities %}
+
+                <option
+                    value="{{ personality.personality_id }}"
+
+                    {% if user.personality_id == personality.personality_id %}
+                        selected
+                    {% endif %}
+                >
+
+                    {{ personality.personality_type }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+
+        <label>Musical Experience:</label>
+
+        <select name="background_id">
+
+            <option value="">Select Experience</option>
+
+            {% for background in backgrounds %}
+
+                <option
+                    value="{{ background.background_id }}"
+
+                    {% if user.background_id == background.background_id %}
+                        selected
+                    {% endif %}
+                >
+
+                    {{ background.experience_level }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+
+        <button type="submit">
+            Save Profile
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

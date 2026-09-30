@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Recommendations</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>My Instrument Recommendations</h1>
+
+    <p>
+        Recommendations are based on your personality,
+        musical experience, preferred genres and practical preferences.
+    </p>
+
+    <p>
+    <a href="/preferences">Change Preferences</a>
+    </p>
+
+    {% if recommendations %}
+
+        <table>
+
+            <tr>
+                <th>Rank</th>
+                <th>Instrument</th>
+                <th>Match Score</th>
+                <th>Type</th>
+                <th>Difficulty</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+
+            {% for recommendation in recommendations %}
+
+                <tr>
+
+                    <td>
+                        {{ recommendation.ranking }}
+                    </td>
+
+                    <td>
+                        {{ recommendation.instrument_name }}
+                    </td>
+
+                    <td>
+                        {{ recommendation.match_score }}%
+                    </td>
+
+                    <td>
+                        {{ recommendation.type }}
+                    </td>
+
+                    <td>
+                        {{ recommendation.difficulty_level }}
+                    </td>
+
+                    <td>
+                        {{ recommendation.category_name }}
+                    </td>
+
+                    <td>
+                        {{ recommendation.description }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>No recommendations were found.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/preferences">Change Preferences</a>
+
+    <br><br>
+
+    <a href="/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

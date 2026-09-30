@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Preferences</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>My Preferences</h1>
+
+    {% if success %}
+        <div class="message">
+            {{ success }}
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>Maximum Budget:</label>
+        <input
+            type="number"
+            name="budget"
+            min="0"
+            step="0.01"
+            value="{{ preference.budget if preference and preference.budget is not none else '' }}"
+        >
+
+        <br><br>
+
+        <label>Maximum Noise Level:</label>
+
+        <select name="noise_preference">
+
+            <option value="">No Preference</option>
+
+            <option value="Low"
+                {% if preference and preference.noise_preference == "Low" %}
+                    selected
+                {% endif %}
+            >
+                Low
+            </option>
+
+            <option value="Medium"
+                {% if preference and preference.noise_preference == "Medium" %}
+                    selected
+                {% endif %}
+            >
+                Medium
+            </option>
+
+            <option value="High"
+                {% if preference and preference.noise_preference == "High" %}
+                    selected
+                {% endif %}
+            >
+                High
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>
+            <input
+                type="checkbox"
+                name="headphone_required"
+                {% if preference and preference.headphone_required %}
+                    checked
+                {% endif %}
+            >
+            I need headphone support
+        </label>
+
+        <br><br>
+
+        <label>
+            <input
+                type="checkbox"
+                name="portability_required"
+                {% if preference and preference.portability_required %}
+                    checked
+                {% endif %}
+            >
+            I need a portable instrument
+        </label>
+
+        <br><br>
+
+        <label>Available Practice Time (minutes):</label>
+
+        <input
+            type="number"
+            name="practice_time"
+            min="1"
+            value="{{ preference.practice_time_minutes if preference and preference.practice_time_minutes is not none else '' }}"
+        >
+
+        <br><br>
+
+        <label>Playing Setting:</label>
+
+        <select name="playing_setting">
+
+            <option value="">Select Setting</option>
+
+            <option value="Home"
+                {% if preference and preference.playing_setting == "Home" %}
+                    selected
+                {% endif %}
+            >
+                Home
+            </option>
+
+            <option value="Church"
+                {% if preference and preference.playing_setting == "Church" %}
+                    selected
+                {% endif %}
+            >
+                Church
+            </option>
+
+            <option value="Band"
+                {% if preference and preference.playing_setting == "Band" %}
+                    selected
+                {% endif %}
+            >
+                Band
+            </option>
+
+            <option value="School"
+                {% if preference and preference.playing_setting == "School" %}
+                    selected
+                {% endif %}
+            >
+                School
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <h3>Preferred Genres</h3>
+
+        {% for genre in genres %}
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    name="genres"
+                    value="{{ genre.genre_id }}"
+
+                    {% if genre.genre_id in selected_genres %}
+                        checked
+                    {% endif %}
+                >
+
+                {{ genre.genre_name }}
+
+            </label>
+
+            <br>
+
+        {% endfor %}
+
+        <br>
+
+        <button type="submit">
+            Save Preferences
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

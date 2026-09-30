@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Welcome, {{ username }}.
+        </p>
+
+        <h2>Management</h2>
+
+        <div class="menu">
+
+            <a
+                class="button"
+                href="/admin/users"
+            >
+                Manage Users
+            </a>
+
+            <a
+                class="button"
+                href="/admin/instruments"
+            >
+                Manage Instruments
+            </a>
+
+        </div>
+
+        <br><br>
+
+        <a href="/dashboard">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

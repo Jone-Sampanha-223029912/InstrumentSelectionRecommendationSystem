@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Instrument</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>Edit Instrument</h1>
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>Instrument Name:</label>
+
+        <input
+            type="text"
+            name="instrument_name"
+            value="{{ instrument.instrument_name }}"
+            required
+        >
+
+        <br><br>
+
+        <label>Type:</label>
+
+        <input
+            type="text"
+            name="type"
+            value="{{ instrument.type }}"
+        >
+
+        <br><br>
+
+        <label>Difficulty:</label>
+
+        <select name="difficulty_level">
+
+            <option value="Easy"
+                {% if instrument.difficulty_level == "Easy" %}selected{% endif %}
+            >
+                Easy
+            </option>
+
+            <option value="Medium"
+                {% if instrument.difficulty_level == "Medium" %}selected{% endif %}
+            >
+                Medium
+            </option>
+
+            <option value="Hard"
+                {% if instrument.difficulty_level == "Hard" %}selected{% endif %}
+            >
+                Hard
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>Category:</label>
+
+        <select name="category_id">
+
+            {% for category in categories %}
+
+                <option
+                    value="{{ category.category_id }}"
+
+                    {% if instrument.category_id == category.category_id %}
+                        selected
+                    {% endif %}
+                >
+
+                    {{ category.category_name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label>Minimum Price:</label>
+
+        <input
+            type="number"
+            name="min_price"
+            min="0"
+            step="0.01"
+            value="{{ instrument.min_price if instrument.min_price is not none else '' }}"
+        >
+
+        <br><br>
+
+        <label>Noise Level:</label>
+
+        <select name="noise_level">
+
+            <option value="">Not Specified</option>
+
+            <option value="Low"
+                {% if instrument.noise_level == "Low" %}selected{% endif %}
+            >
+                Low
+            </option>
+
+            <option value="Medium"
+                {% if instrument.noise_level == "Medium" %}selected{% endif %}
+            >
+                Medium
+            </option>
+
+            <option value="High"
+                {% if instrument.noise_level == "High" %}selected{% endif %}
+            >
+                High
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>
+
+            <input
+                type="checkbox"
+                name="headphone_support"
+                {% if instrument.headphone_support %}checked{% endif %}
+            >
+
+            Headphone Support
+
+        </label>
+
+        <br><br>
+
+        <label>
+
+            <input
+                type="checkbox"
+                name="portable"
+                {% if instrument.portable %}checked{% endif %}
+            >
+
+            Portable
+
+        </label>
+
+        <br><br>
+
+        <label>Recommended Practice Minutes:</label>
+
+        <input
+            type="number"
+            name="practice_minutes"
+            min="1"
+            value="{{ instrument.recommended_practice_minutes if instrument.recommended_practice_minutes is not none else '' }}"
+        >
+
+        <br><br>
+
+        <label>Description:</label>
+
+        <br>
+
+        <textarea
+            name="description"
+            rows="4"
+            cols="40"
+        >{{ instrument.description if instrument.description else '' }}</textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/admin/instruments">Cancel</a>
+
+</body>
+</html>

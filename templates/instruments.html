@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Instruments</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>Search Instruments</h1>
+
+    <form method="GET">
+
+        <label>Search:</label>
+
+        <input
+            type="text"
+            name="search"
+            value="{{ search_text }}"
+            placeholder="Example: guitar"
+        >
+
+        <br><br>
+
+        <label>Category:</label>
+
+        <select name="category_id">
+
+            <option value="">All Categories</option>
+
+            {% for category in categories %}
+
+                <option
+                    value="{{ category.category_id }}"
+
+                    {% if selected_category == category.category_id|string %}
+                        selected
+                    {% endif %}
+                >
+                    {{ category.category_name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">Search</button>
+
+        <a href="/instruments">Clear</a>
+
+    </form>
+
+    <hr>
+
+    {% if instruments %}
+
+        <table>
+
+            <tr>
+                <th>Instrument</th>
+                <th>Type</th>
+                <th>Difficulty</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Noise</th>
+                <th>Portable</th>
+                <th>Description</th>
+            </tr>
+
+            {% for instrument in instruments %}
+
+                <tr>
+
+                    <td>{{ instrument.instrument_name }}</td>
+
+                    <td>{{ instrument.type }}</td>
+
+                    <td>{{ instrument.difficulty_level }}</td>
+
+                    <td>{{ instrument.category_name }}</td>
+
+                    <td>
+                        {% if instrument.min_price is not none %}
+                            {{ instrument.min_price }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>{{ instrument.noise_level }}</td>
+
+                    <td>
+                        {% if instrument.portable %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+
+                    <td>{{ instrument.description }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>No instruments found.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

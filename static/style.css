@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 85%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 6px;
+}
+
+h1 {
+    color: #333;
+}
+
+h2, h3 {
+    color: #444;
+}
+
+p {
+    line-height: 1.5;
+}
+
+a {
+    color: #2457a6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input,
+select,
+textarea {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+button,
+.button {
+    background-color: #2457a6;
+    color: white;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:hover,
+.button:hover {
+    background-color: #183d78;
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #eeeeee;
+}
+
+.message {
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-left: 4px solid #4caf50;
+    margin-bottom: 15px;
+}
+
+.error {
+    background-color: #ffebee;
+    padding: 10px;
+    border-left: 4px solid #d32f2f;
+    margin-bottom: 15px;
+}
+
+.menu a {
+    display: inline-block;
+    margin: 5px 10px 5px 0;
+}
+
+.actions {
+    margin-top: 20px;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Users</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>Manage Users</h1>
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for user in users %}
+
+            <tr>
+
+                <td>{{ user.user_id }}</td>
+
+                <td>{{ user.username }}</td>
+
+                <td>
+                    {{ user.first_name }}
+                    {{ user.last_name }}
+                </td>
+
+                <td>{{ user.email }}</td>
+
+                <td>{{ user.role }}</td>
+
+                <td>
+
+                    <form
+                        method="POST"
+                        action="/admin/users/role"
+                        style="display:inline;"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="user_id"
+                            value="{{ user.user_id }}"
+                        >
+
+                        <select name="role">
+
+                            <option
+                                value="User"
+                                {% if user.role == "User" %}
+                                    selected
+                                {% endif %}
+                            >
+                                User
+                            </option>
+
+                            <option
+                                value="Admin"
+                                {% if user.role == "Admin" %}
+                                    selected
+                                {% endif %}
+                            >
+                                Admin
+                            </option>
+
+                        </select>
+
+                        <button type="submit">
+                            Change Role
+                        </button>
+
+                    </form>
+
+                    {% if user.user_id != session_user_id %}
+
+                        <form
+                            method="POST"
+                            action="/admin/users/delete"
+                            style="display:inline;"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="user_id"
+                                value="{{ user.user_id }}"
+                            >
+
+                            <button type="submit">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="/admin">Back to Admin Dashboard</a>
+
+</body>
+</html>

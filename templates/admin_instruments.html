@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Instruments</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <h1>Manage Instruments</h1>
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <a href="/admin/instruments/add">Add New Instrument</a>
+
+    <br><br>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Instrument</th>
+            <th>Type</th>
+            <th>Difficulty</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Noise</th>
+            <th>Portable</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for instrument in instruments %}
+
+            <tr>
+
+                <td>{{ instrument.instrument_id }}</td>
+
+                <td>{{ instrument.instrument_name }}</td>
+
+                <td>{{ instrument.type }}</td>
+
+                <td>{{ instrument.difficulty_level }}</td>
+
+                <td>{{ instrument.category_name }}</td>
+
+                <td>{{ instrument.min_price }}</td>
+
+                <td>{{ instrument.noise_level }}</td>
+
+                <td>
+                    {% if instrument.portable %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    <a href="/admin/instruments/edit/{{ instrument.instrument_id }}">
+                        Edit
+                    </a>
+
+                    <form
+                        method="POST"
+                        action="/admin/instruments/delete/{{ instrument.instrument_id }}"
+                        style="display:inline;"
+                    >
+
+                        <button type="submit">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="/admin">Back to Admin Dashboard</a>
+
+</body>
+</html>
